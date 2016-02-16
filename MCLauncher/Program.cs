@@ -10,7 +10,6 @@ namespace MCLauncher
     {
         public static string path = Application.StartupPath + "\\";
         public static string launcher = path + "Launcher.jar";
-        public const string java = "java.exe";
         /// <summary>
         /// 应用程序的主入口点。
         /// </summary>
