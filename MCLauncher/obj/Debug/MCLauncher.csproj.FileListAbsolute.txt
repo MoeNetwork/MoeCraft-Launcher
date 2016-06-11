@@ -8,6 +8,6 @@ C:\Work Station\OneDrive\C# Projects\MCLauncher\MCLauncher\obj\Debug\MCLauncher.
 C:\Work Station\OneDrive\C# Projects\MCLauncher\MCLauncher\obj\Debug\MCLauncher.pdb
 C:\Work Station\OneDrive\C# Projects\MCLauncher\MCLauncher\bin\Debug\MCLauncher.exe
 C:\Work Station\OneDrive\C# Projects\MCLauncher\MCLauncher\bin\Debug\MCLauncher.pdb
-C:\Work Station\OneDrive\C# Projects\MCLauncher\MCLauncher\obj\Debug\MCLauncher.csprojResolveAssemblyReference.cache
 C:\Work Station\OneDrive\C# Projects\MCLauncher\MCLauncher\obj\Debug\MCLauncher.Properties.Resources.resources
 C:\Work Station\OneDrive\C# Projects\MCLauncher\MCLauncher\obj\Debug\MCLauncher.csproj.GenerateResource.Cache
+C:\Work Station\OneDrive\C# Projects\MCLauncher\MCLauncher\obj\Debug\MCLauncher.logger.resources
