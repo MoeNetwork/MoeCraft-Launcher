@@ -1,0 +1,7 @@
+C:\Users\wmzhi\Desktop\OneDrive\C# Projects\MCLauncher\MCLauncher\bin\Release\MCLauncher.exe
+C:\Users\wmzhi\Desktop\OneDrive\C# Projects\MCLauncher\MCLauncher\bin\Release\MCLauncher.pdb
+C:\Users\wmzhi\Desktop\OneDrive\C# Projects\MCLauncher\MCLauncher\obj\Release\MCLauncher.logger.resources
+C:\Users\wmzhi\Desktop\OneDrive\C# Projects\MCLauncher\MCLauncher\obj\Release\MCLauncher.Properties.Resources.resources
+C:\Users\wmzhi\Desktop\OneDrive\C# Projects\MCLauncher\MCLauncher\obj\Release\MCLauncher.csproj.GenerateResource.Cache
+C:\Users\wmzhi\Desktop\OneDrive\C# Projects\MCLauncher\MCLauncher\obj\Release\MCLauncher.exe
+C:\Users\wmzhi\Desktop\OneDrive\C# Projects\MCLauncher\MCLauncher\obj\Release\MCLauncher.pdb
