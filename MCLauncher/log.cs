@@ -92,11 +92,11 @@ namespace MCLauncher
 
         private void 关于AToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if(MessageBox.Show("MoeCraft Launcher for Windows V2.0\r\n作者：Kenvix\r\nhttp://zhizhe8.net","关于",MessageBoxButtons.OKCancel,MessageBoxIcon.Information) == DialogResult.OK)
+            if(MessageBox.Show("MoeCraft Launcher for Windows V3.0\r\n作者：Kenvix\r\nhttps://kenvix.com\r\n\r\n可用命令行参数：\r\n/allowj7  允许低版本的 Java","关于",MessageBoxButtons.OKCancel,MessageBoxIcon.Information) == DialogResult.OK)
             {
                 try
                 {
-                    Process.Start("http://zhizhe8.net");
+                    Process.Start("explorer","https://kenvix.com");
                 }
                 catch (Exception) { }
             }

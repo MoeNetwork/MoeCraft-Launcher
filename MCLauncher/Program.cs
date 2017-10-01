@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
 using Microsoft.Win32;
+using System.Collections;
 
 namespace MCLauncher
 {
@@ -10,6 +11,8 @@ namespace MCLauncher
     {
         public static string path = Application.StartupPath + "\\";
         public static string launcher = path + "Launcher.jar";
+        public static IList args = (IList)Environment.GetCommandLineArgs();
+
         /// <summary>
         /// 应用程序的主入口点。
         /// </summary>
@@ -17,6 +20,11 @@ namespace MCLauncher
         static void Main()
         {
             Application.EnableVisualStyles();
+            if (args.Contains("/nojava") || args.Contains("-nojava"))
+            {
+                Application.Run(new nojava());
+                Environment.Exit(0);
+            }
             if (!File.Exists(launcher))
             {
                 if(File.Exists(path + "启动器.jar"))
@@ -53,35 +61,21 @@ namespace MCLauncher
                     try
                     {
                         RegistryKey regRoot = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\JavaSoft\Java Runtime Environment");
+                        Version javaver     = new Version(regRoot.GetValue("CurrentVersion").ToString());
+                        if(!args.Contains("/allowj7") && !args.Contains("-allowj7") && javaver <= new Version("1.7"))
+                        {
+                            Application.Run(new nojava());
+                            Environment.Exit(4);
+                        }
                         RegistryKey reg     = regRoot.OpenSubKey((regRoot.GetSubKeyNames())[regRoot.GetSubKeyNames().Length - 1]);
                         string javahome     = reg.GetValue("JavaHome").ToString();
                         string path         = javahome + @"\bin\java.exe";
-                        if (string.IsNullOrEmpty(javahome) || !File.Exists(path))
-                        {
-                            if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("JAVA_HOME")))
-                            {
-                                path         = Environment.GetEnvironmentVariable("JAVA_HOME") + @"\bin\java.exe";
-                                if (!File.Exists(path))
-                                {
-                                    path = "java.exe";
-                                }
-                            }
-                        }
                         java(path);
                     }
                     catch (Exception ex)
                     {
-                        if (MessageBox.Show("你的电脑可能没有安装 Java，你可以从以下地址获取 Java：\r\nhttps://cdn.moecraft.net/jre/index.html\r\n你必须安装 Java 才能运行 MoeCraft，现在打开该地址吗？\r\n\r\n" + ex.Message, "Java 错误 - MoeCraft Launcher for Windows", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
-                        {
-                            try
-                            {
-                                Process.Start("https://cdn.moecraft.net/jre/index.html");
-                            }
-                            catch (Exception pex)
-                            {
-                                error(pex.Message);
-                            }
-                        }
+                        Application.Run(new nojava());
+                        Environment.Exit(3);
                     }
                 }
             }
