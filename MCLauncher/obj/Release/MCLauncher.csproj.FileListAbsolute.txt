@@ -7,7 +7,6 @@ C:\Users\wmzhi\Desktop\OneDrive\C# Projects\MCLauncher\MCLauncher\obj\Release\MC
 C:\Users\wmzhi\Desktop\OneDrive\C# Projects\MCLauncher\MCLauncher\obj\Release\MCLauncher.pdb
 C:\Work Station\C# Projects\MCLauncher\MCLauncher\bin\Release\MCLauncher.exe
 C:\Work Station\C# Projects\MCLauncher\MCLauncher\bin\Release\MCLauncher.pdb
-C:\Work Station\C# Projects\MCLauncher\MCLauncher\obj\Release\MCLauncher.csprojResolveAssemblyReference.cache
 C:\Work Station\C# Projects\MCLauncher\MCLauncher\obj\Release\MCLauncher.logger.resources
 C:\Work Station\C# Projects\MCLauncher\MCLauncher\obj\Release\MCLauncher.nojava.resources
 C:\Work Station\C# Projects\MCLauncher\MCLauncher\obj\Release\MCLauncher.Properties.Resources.resources
@@ -15,3 +14,5 @@ C:\Work Station\C# Projects\MCLauncher\MCLauncher\obj\Release\MCLauncher.csproj.
 C:\Work Station\C# Projects\MCLauncher\MCLauncher\obj\Release\MCLauncher.csproj.CoreCompileInputs.cache
 C:\Work Station\C# Projects\MCLauncher\MCLauncher\obj\Release\MCLauncher.exe
 C:\Work Station\C# Projects\MCLauncher\MCLauncher\obj\Release\MCLauncher.pdb
+C:\Work Station\C# Projects\MCLauncher\MCLauncher\obj\Release\MCLauncher.csprojAssemblyReference.cache
+C:\Work Station\C# Projects\MCLauncher\MCLauncher\obj\Release\MCLauncher.waiting.resources

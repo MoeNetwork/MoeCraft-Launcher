@@ -18,14 +18,18 @@ namespace MCLauncher
         {
             InitializeComponent();
             ps.StartInfo.RedirectStandardOutput = true;
+            ps.StartInfo.RedirectStandardError = true;
             ps.Exited += Ps_Exited;
             ps.Start();
             ps.BeginOutputReadLine();
             px = ps;
-            ps.OutputDataReceived += new DataReceivedEventHandler((object drsender, DataReceivedEventArgs dre) =>
-            {
-                log(dre.Data);
-            });
+            ps.ErrorDataReceived += new DataReceivedEventHandler(OutputHandler);
+            ps.OutputDataReceived += new DataReceivedEventHandler(OutputHandler);
+        }
+
+        private void OutputHandler(object sender, DataReceivedEventArgs e)
+        {
+            log(e.Data);
         }
 
         private void Ps_Exited(object sender, EventArgs e)
@@ -92,7 +96,7 @@ namespace MCLauncher
 
         private void 关于AToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if(MessageBox.Show("MoeCraft Launcher for Windows V3.0\r\n作者：Kenvix\r\nhttps://kenvix.com\r\n\r\n可用命令行参数：\r\n/allowj7  允许低版本的 Java","关于",MessageBoxButtons.OKCancel,MessageBoxIcon.Information) == DialogResult.OK)
+            if(MessageBox.Show("MoeCraft Launcher for Windows V3.0\r\n作者：Kenvix\r\nhttps://kenvix.com\r\n\r\n可用命令行参数：\r\n/allowj7  允许低版本的 Java\r\n/updateHMCLConfig  从MoeCraft安装包中读出MoeCraft所需MC版本并更新HMCL配置文件", "关于",MessageBoxButtons.OKCancel,MessageBoxIcon.Information) == DialogResult.OK)
             {
                 try
                 {

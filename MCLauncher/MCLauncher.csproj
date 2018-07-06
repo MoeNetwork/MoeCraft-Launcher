@@ -40,6 +40,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -64,6 +65,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="waiting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="waiting.Designer.cs">
+      <DependentUpon>waiting.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="log.resx">
       <DependentUpon>log.cs</DependentUpon>
     </EmbeddedResource>
@@ -79,6 +86,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="waiting.resx">
+      <DependentUpon>waiting.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\app.manifest" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
