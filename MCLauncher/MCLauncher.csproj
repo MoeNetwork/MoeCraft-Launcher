@@ -51,31 +51,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="log.cs">
+    <Compile Include="Gui\NoJavaPromptForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="log.Designer.cs">
-      <DependentUpon>log.cs</DependentUpon>
+    <Compile Include="Gui\NoJavaPromptForm.Designer.cs">
+      <DependentUpon>NoJavaPromptForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="nojava.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="nojava.Designer.cs">
-      <DependentUpon>nojava.cs</DependentUpon>
-    </Compile>
+    <Compile Include="Library\ApplicationEnvironment.cs" />
+    <Compile Include="Library\JarFinder.cs" />
+    <Compile Include="Library\JavaFinder.cs" />
+    <Compile Include="Library\JavaFindResult.cs" />
+    <Compile Include="Library\SearchMode.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="waiting.cs">
+    <Compile Include="Gui\WaitingForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="waiting.Designer.cs">
-      <DependentUpon>waiting.cs</DependentUpon>
+    <Compile Include="Gui\WaitingForm.Designer.cs">
+      <DependentUpon>WaitingForm.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="log.resx">
-      <DependentUpon>log.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="nojava.resx">
-      <DependentUpon>nojava.cs</DependentUpon>
+    <EmbeddedResource Include="Gui\NoJavaPromptForm.resx">
+      <DependentUpon>NoJavaPromptForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -86,8 +82,8 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="waiting.resx">
-      <DependentUpon>waiting.cs</DependentUpon>
+    <EmbeddedResource Include="Gui\WaitingForm.resx">
+      <DependentUpon>WaitingForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\app.manifest" />
     <None Include="Properties\Settings.settings">

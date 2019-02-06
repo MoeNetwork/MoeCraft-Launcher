@@ -1,18 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+using System;
 using System.Diagnostics;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace MCLauncher
 {
-    public partial class waiting : Form
+    public partial class WaitingForm : Form
     {
-        public waiting()
+        public WaitingForm()
         {
             InitializeComponent();
             VerionLabel.Text = Application.ProductVersion;

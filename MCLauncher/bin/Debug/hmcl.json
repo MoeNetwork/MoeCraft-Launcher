@@ -1,0 +1,71 @@
+{
+  "last": "MoeCraft-Auto",
+  "backgroundType": 0,
+  "bgpath": "",
+  "commonpath": "C:\\Users\\kenvi\\AppData\\Roaming\\.minecraft",
+  "hasProxy": false,
+  "hasProxyAuth": false,
+  "proxyType": 0,
+  "theme": "0",
+  "downloadtype": 1,
+  "configurations": {
+    "MoeCraft-Auto": {
+      "global": {
+        "usesGlobal": false,
+        "javaArgs": "",
+        "minecraftArgs": "",
+        "maxMemory": 2048,
+        "permSize": "",
+        "width": 854,
+        "height": 480,
+        "javaDir": "",
+        "precalledCommand": "",
+        "serverIp": "",
+        "java": "",
+        "wrapper": "",
+        "fullscreen": false,
+        "noJVMArgs": false,
+        "notCheckGame": false,
+        "noCommon": false,
+        "showLogs": false,
+        "gameDir": "",
+        "launcherVisibility": 1,
+        "gameDirType": 0,
+        "defaultJavaPath": ""
+      },
+      "gameDir": ".minecraft"
+    },
+    "Default": {
+      "global": {
+        "usesGlobal": false,
+        "javaArgs": "",
+        "minecraftArgs": "",
+        "maxMemory": 2048,
+        "permSize": "",
+        "width": 854,
+        "height": 480,
+        "javaDir": "",
+        "precalledCommand": "",
+        "serverIp": "",
+        "java": "",
+        "wrapper": "",
+        "fullscreen": false,
+        "noJVMArgs": false,
+        "notCheckGame": false,
+        "noCommon": false,
+        "showLogs": false,
+        "gameDir": "",
+        "launcherVisibility": 1,
+        "gameDirType": 0,
+        "defaultJavaPath": ""
+      },
+      "gameDir": ".minecraft"
+    }
+  },
+  "accounts": [],
+  "selectedAccount": "",
+  "fontFamily": "Consolas",
+  "fontSize": 12.0,
+  "logLines": 100,
+  "authlibInjectorServerURLs": []
+}

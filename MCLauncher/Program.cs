@@ -1,175 +1,96 @@
-﻿using System;
+using MCLauncher.Library;
+using System;
 using System.Diagnostics;
 using System.IO;
-using System.Windows.Forms;
-using Microsoft.Win32;
-using System.Collections;
-using System.Text.RegularExpressions;
 using System.Threading;
+using System.Windows.Forms;
 
 namespace MCLauncher
 {
     static class Program
     {
-        const string MinJavaVer = "1.8";
-
-        public static string path = Application.StartupPath + "\\";
-        public static string launcher = path + "Launcher.jar";
-        public static IList args = (IList)Environment.GetCommandLineArgs();
 
         /// <summary>
         /// 应用程序的主入口点。
         /// </summary>
         [STAThread]
-        static void Main()
+        static void Main(string[] args)
         {
-            if (args.Contains("/updateHMCLConfig") || args.Contains("-updateHMCLConfig"))
-            {
-                if(File.Exists("hmcl.json") && File.Exists("updater/paths/mcjar.txt"))
-                {
-                    try
-                    {
-                        string json = File.ReadAllText("hmcl.json");
-                        Match target = Regex.Match(json, @"""name"": ""MoeCraft-Auto"",([\s\S]*?)""gameDir", RegexOptions.IgnoreCase);
-                        string replacement = Regex.Replace(target.Value, @"""selectedMinecraftVersion"": ""(.*?)""", @"""selectedMinecraftVersion"": """ + File.ReadAllText("updater/paths/mcjar.txt") + @"""", RegexOptions.IgnoreCase);
-                        string result = json.Substring(0, target.Index) + replacement + json.Substring(target.Index + target.Length);
-                        File.WriteAllText("hmcl.json", result);
-                    }
-                    catch(Exception ex)
-                    {
-                        error(ex.ToString(), "更新启动器配置文件失败");
-                        Environment.Exit(1);
-                    }
-                    Environment.Exit(0); //DONE
-                }
-                else
-                {
-                    Environment.Exit(3); //HMCL JSON NOT EXISTS
-                }
-            }
-            Application.EnableVisualStyles();
-            Thread WaitingForm = new Thread(() =>
-            {
-                Application.Run(new waiting());
-            });
-            WaitingForm.Start();
-            if (args.Contains("/nojava") || args.Contains("-nojava"))
-            {
-                Application.Run(new nojava());
-                Environment.Exit(0);
-            }
-            if (!File.Exists(launcher))
-            {
-                if(File.Exists(path + "启动器.jar"))
-                {
-                    launcher = path + "启动器.jar";
-                }
-                else
-                {
-                    launcher = "";
-                    var df = Directory.GetFiles(path);
-                    foreach(string la in df)
-                    {
-                        var ff = new FileInfo(la);
-                        if(ff.Name.Substring(0,4).ToLower() == "hmcl")
-                        {
-                            launcher = la;
-                            break;
-                        }
-                    }
-                    if(string.IsNullOrEmpty(launcher))
-                    {
-                        error("找不到启动器文件\r\nLauncher.jar 或 启动器.jar 或 HMCL*.jar\r\n\r\n请打开 MoeCraft Toolbox 更新 MoeCraft");
-                        Environment.Exit(4);
-                    }
-                }
-            }
             try
             {
-                Version JavaVer1 = null;
-                Version JavaVer2 = null;
-                Version JavaTrueVer = null;
-                string JavaTrueRegPath = null;
-                try
+                Thread progressThread = new Thread(() => Application.Run(new WaitingForm()));
+                progressThread.Start();
+
+                var javaResult = new JavaFinder(ApplicationEnvironment.TargetJavaVersion).FindJava();
+
+                if (javaResult == null || !javaResult.IsSuccess)
                 {
-                    RegistryKey JavaRegRoot1 = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\JavaSoft\Java Runtime Environment");
-                    if (JavaRegRoot1 != null)
+                    progressThread.Abort();
+                    ShowNoJavaPromptForm(NoJavaPromptForm.NoJavaMessageType.NotFound);
+                }
+
+                if (javaResult.IsCompat)
+                {
+                    if (MessageBox.Show(
+                            "检测到您的计算机是 64 位计算机，但只安装了 32 位版本的 Java.\r\n继续启动 MoeCraft 可能导致不可预料的故障，我们推荐您安装 64 位的 Java\r\n您想了解如何安装 64 位的 Java 吗？",
+                            "Java 版本不兼容", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
                     {
-                        var JavaVerKey1 = JavaRegRoot1.GetValue("CurrentVersion");
-                        if (JavaVerKey1 != null)
-                        {
-                            JavaVer1 = new Version(JavaVerKey1.ToString());
-                        }
+                        progressThread.Abort();
+                        ShowNoJavaPromptForm(NoJavaPromptForm.NoJavaMessageType.Incompatible);
                     }
                 }
-                catch (Exception) { }
-                try
+
+                string jarResult;
+
+                if (args.Length >= 1 && File.Exists(args[0]))
                 {
-                    RegistryKey JavaRegRoot2 = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\JavaSoft\JRE");
-                    if (JavaRegRoot2 != null)
-                    {
-                        var JavaVerKey2 = JavaRegRoot2.GetValue("CurrentVersion");
-                        if (JavaVerKey2 != null)
-                        {
-                            JavaVer2 = new Version(JavaVerKey2.ToString());
-                        }
-                    }
+                    jarResult = args[0];
                 }
-                catch (Exception) { }
-                if (JavaVer1 != null && (JavaVer2 == null || JavaVer1 >= JavaVer2))
+                else
                 {
-                    JavaTrueVer = JavaVer1;
-                    JavaTrueRegPath = "Java Runtime Environment";
+                    jarResult = new JarFinder(ApplicationEnvironment.SearchFileOrder).find();
                 }
-                else if (JavaVer2 != null && (JavaVer1 == null || JavaVer1 <= JavaVer2))
+
+                if (jarResult == null)
                 {
-                    JavaTrueVer = JavaVer2;
-                    JavaTrueRegPath = "JRE";
-                }
-                if (JavaTrueVer == null)
-                {
-                    Application.Run(new nojava(nojava.NoJavaMessageType.NotFound));
+                    Error("未找到符合条件的 jar，请确保你已经正确解压/安装了MoeCraft");
                     Environment.Exit(3);
                 }
-                if (!args.Contains("/allowold") && !args.Contains("-allowold") && JavaTrueVer < new Version(MinJavaVer))
-                {
-                    Application.Run(new nojava(nojava.NoJavaMessageType.TooOld));
-                    Environment.Exit(4);
-                }
-                RegistryKey reg = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\JavaSoft\" + JavaTrueRegPath).OpenSubKey(JavaTrueVer.ToString());
-                string javahome = reg.GetValue("JavaHome").ToString();
-                string path = javahome + @"\bin\javaw.exe";
-                java(path);
+
+                RunJavaAndWait(javaResult.Path, jarResult);
+
             }
             catch (Exception ex)
             {
-                Application.Run(new nojava(nojava.NoJavaMessageType.NotFound));
-                Environment.Exit(3);
+                Error("操作失败：\r\n" + ex);
+                Environment.Exit(4);
             }
+
+            Thread.Sleep(500);
+            Environment.Exit(0);
         }
 
-        private static void java(string v)
+        private static void ShowNoJavaPromptForm(NoJavaPromptForm.NoJavaMessageType messageType)
         {
-            try
-            {
-                var ps = new Process();
-                ps.StartInfo.UseShellExecute = false;
-                ps.StartInfo.Arguments = "-jar \"" + launcher + "\" ";
-                ps.StartInfo.FileName = v;
-                ps.StartInfo.RedirectStandardOutput = true;
-                ps.Start();
-                ps.WaitForInputIdle();
-                Thread.Sleep(1111);
-                Environment.Exit(0);
-            } catch(Exception ex)
-            {
-                error("启动 Java 失败\r\n" + ex.ToString());
-            }
+            Application.Run(new NoJavaPromptForm(messageType));
+            Environment.Exit(2);
         }
 
-        public static void error(string msg, string title = "错误 - MoeCraft Launcher for Windows")
+        private static void RunJavaAndWait(string javaPath, string jarPath)
         {
-            MessageBox.Show(msg, title, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            var ps = new Process();
+            ps.StartInfo.UseShellExecute = false;
+            ps.StartInfo.Arguments = "-jar \"" + Path.GetFullPath(jarPath) + "\" ";
+            ps.StartInfo.FileName = Path.GetFullPath(javaPath);
+            ps.Start();
+
+            ps.WaitForInputIdle();
         }
+
+        private static void Error(string msg, MessageBoxIcon icon = MessageBoxIcon.Error, string title = "MoeCraft Launcher for Windows")
+        {
+            MessageBox.Show(msg, title, MessageBoxButtons.OK, icon);
+        }
+
     }
 }
