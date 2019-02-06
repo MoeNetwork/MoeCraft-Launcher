@@ -57,17 +57,33 @@ namespace MCLauncher
                     Environment.Exit(3);
                 }
 
-                RunJavaAndWait(javaResult.Path, jarResult);
+                try
+                {
+                    var process = RunJava(javaResult.JavaExePath, jarResult);
+                    process.WaitForInputIdle();
+                    Thread.Sleep(958);
+
+                    if (process.HasExited && process.ExitCode != 0)
+                    {
+                        Error(string.Format("检测到 Jar {0} 没有正确启动\r\nJar 退出码: {1}\r\n这可能是由于你没有正确解压/安装 MoeCraft 导致的，请尝试重新安装 MoeCraft.\r\n\r\n若仍有问题，请在本目录打开命令提示符，输入以下命令查看错误消息 (都在一行):\r\njava -jar {2}\r\n\r\n其他参考信息: 所用 Java 路径: {3}", jarResult, process.ExitCode.ToString(), jarResult, javaResult.JavaExePath));
+
+                        Environment.Exit(10);
+                    }
+
+                    Environment.Exit(0);
+                }
+                catch (Exception ex)
+                {
+                    Error(string.Format("启动 Java 失败：\r\nJar: {0}\r\nJava: {1}\r\n{2}", jarResult, javaResult.JavaExePath, ex));
+                    Environment.Exit(5);
+                }
 
             }
             catch (Exception ex)
             {
                 Error("操作失败：\r\n" + ex);
-                Environment.Exit(4);
+                Environment.Exit(1);
             }
-
-            Thread.Sleep(500);
-            Environment.Exit(0);
         }
 
         private static void ShowNoJavaPromptForm(NoJavaPromptForm.NoJavaMessageType messageType)
@@ -76,7 +92,7 @@ namespace MCLauncher
             Environment.Exit(2);
         }
 
-        private static void RunJavaAndWait(string javaPath, string jarPath)
+        private static Process RunJava(string javaPath, string jarPath)
         {
             var ps = new Process();
             ps.StartInfo.UseShellExecute = false;
@@ -84,7 +100,7 @@ namespace MCLauncher
             ps.StartInfo.FileName = Path.GetFullPath(javaPath);
             ps.Start();
 
-            ps.WaitForInputIdle();
+            return ps;
         }
 
         private static void Error(string msg, MessageBoxIcon icon = MessageBoxIcon.Error, string title = "MoeCraft Launcher for Windows")

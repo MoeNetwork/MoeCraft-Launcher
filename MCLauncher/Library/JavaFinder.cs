@@ -85,9 +85,16 @@ namespace MCLauncher.Library
             {
                 directorySearchResult = SearchJavaDirectory(ApplicationEnvironment.X86DirectoryName);
                 if (directorySearchResult != null)
+                {
+                    directorySearchResult = Path.Combine(directorySearchResult, ApplicationEnvironment.X86DirectoryName);
                     isCompat = true;
+                }
             }
-                
+            else
+            {
+                directorySearchResult = Path.Combine(directorySearchResult, GetPlatformDirectoryName());
+            }
+
             return new JavaFindResult(directorySearchResult != null, isCompat, directorySearchResult);
         }
 

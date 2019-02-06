@@ -12,6 +12,5 @@ C:\Work Station\C# Projects\MCLauncher\MCLauncher\obj\Release\MCLauncher.csproj.
 C:\Work Station\C# Projects\MCLauncher\MCLauncher\obj\Release\MCLauncher.csproj.CoreCompileInputs.cache
 C:\Work Station\C# Projects\MCLauncher\MCLauncher\obj\Release\MCLauncher.exe
 C:\Work Station\C# Projects\MCLauncher\MCLauncher\obj\Release\MCLauncher.pdb
-C:\Work Station\C# Projects\MCLauncher\MCLauncher\obj\Release\MCLauncher.csprojAssemblyReference.cache
 C:\Work Station\C# Projects\MCLauncher\MCLauncher\obj\Release\MCLauncher.NoJavaPromptForm.resources
 C:\Work Station\C# Projects\MCLauncher\MCLauncher\obj\Release\MCLauncher.WaitingForm.resources
