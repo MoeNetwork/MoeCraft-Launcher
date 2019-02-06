@@ -8,8 +8,8 @@ namespace MCLauncher.Library
 
         public JavaFindResult(bool isSuccess, bool isCompat, string path)
         {
-            this.IsSuccess = isCompat;
-            this.IsCompat = isSuccess;
+            this.IsSuccess = isSuccess;
+            this.IsCompat = isCompat;
             this.Path = path;
         }
     }

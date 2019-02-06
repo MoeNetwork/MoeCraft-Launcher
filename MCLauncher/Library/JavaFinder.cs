@@ -88,7 +88,7 @@ namespace MCLauncher.Library
                     isCompat = true;
             }
                 
-            return new JavaFindResult(directorySearchResult == null, isCompat, directorySearchResult);
+            return new JavaFindResult(directorySearchResult != null, isCompat, directorySearchResult);
         }
 
         private JavaFindResult makeFault()
@@ -108,10 +108,7 @@ namespace MCLauncher.Library
 
             var registryJavaHomeValue = registryNode.GetValue("JavaHome");
 
-            if (registryJavaHomeValue == null)
-                return makeFault();
-
-            return new JavaFindResult(true, isCompat, registryJavaHomeValue.ToString());
+            return new JavaFindResult(registryJavaHomeValue != null, isCompat, registryJavaHomeValue.ToString());
         }
 
         private JavaFindResult FindFormRegistry()

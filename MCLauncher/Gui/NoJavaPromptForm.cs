@@ -30,8 +30,8 @@ namespace MCLauncher
 
             }
 
-            LabelPromptTitle.Text = String.Format(LabelPromptTitle.Text, ApplicationEnvironment.JavaVersionReadable);
-            ButtonDownloadJava.Text = String.Format(ButtonDownloadJava.Text, ApplicationEnvironment.JavaVersionReadable);
+            LabelPromptTitle.Text = string.Format(LabelPromptTitle.Text, ApplicationEnvironment.JavaVersionReadable);
+            ButtonDownloadJava.Text = string.Format(ButtonDownloadJava.Text, ApplicationEnvironment.JavaVersionReadable);
         }
 
         private void button1_Click(object sender, EventArgs e)

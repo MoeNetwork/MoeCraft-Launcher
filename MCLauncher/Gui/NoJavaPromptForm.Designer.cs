@@ -46,7 +46,7 @@ namespace MCLauncher
             this.LabelPromptTitle.Name = "LabelPromptTitle";
             this.LabelPromptTitle.Size = new System.Drawing.Size(203, 19);
             this.LabelPromptTitle.TabIndex = 0;
-            this.LabelPromptTitle.Text = "MoeCraft 需要 %s 才能运行";
+            this.LabelPromptTitle.Text = "MoeCraft 需要 {0} 才能运行";
             // 
             // label2
             // 
@@ -74,7 +74,7 @@ namespace MCLauncher
             this.ButtonDownloadJava.Name = "ButtonDownloadJava";
             this.ButtonDownloadJava.Size = new System.Drawing.Size(424, 35);
             this.ButtonDownloadJava.TabIndex = 4;
-            this.ButtonDownloadJava.Text = "点击获取 %s";
+            this.ButtonDownloadJava.Text = "点击获取 {0}";
             this.ButtonDownloadJava.UseVisualStyleBackColor = true;
             this.ButtonDownloadJava.Click += new System.EventHandler(this.button1_Click);
             // 
